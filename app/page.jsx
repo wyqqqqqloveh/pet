@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 const services = [
   {
     image:
@@ -54,7 +58,56 @@ const plans = [
   },
 ];
 
+const testimonials = [
+  {
+    name: "豆包妈妈",
+    pet: "比熊 · 精护套餐",
+    quote:
+      "以前洗澡会很紧张，这次美容师会先陪它适应环境，还把耳朵和皮肤情况都说明得很清楚。接回来毛很蓬松，状态也很好。",
+    score: "5.0",
+    image:
+      "https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=800&q=85",
+  },
+  {
+    name: "Lucky 爸爸",
+    pet: "金毛 · 开结洗护",
+    quote:
+      "换季掉毛很严重，店里没有硬梳，分段处理毛结，还给了居家梳毛建议。整个过程能看到照片反馈，比较放心。",
+    score: "4.9",
+    image:
+      "https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=800&q=85",
+  },
+  {
+    name: "奶茶姐姐",
+    pet: "布偶猫 · 低压护理",
+    quote:
+      "猫咪胆子小，工作人员安排了安静房间和低噪吹干，中途也没有催。回家后没有明显应激，脚底毛修得很细致。",
+    score: "5.0",
+    image:
+      "https://images.unsplash.com/photo-1574158622682-e40e69881006?auto=format&fit=crop&w=800&q=85",
+  },
+];
+
 export default function Home() {
+  const [activeReview, setActiveReview] = useState(0);
+  const review = testimonials[activeReview];
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveReview((current) => (current + 1) % testimonials.length);
+    }, 5200);
+
+    return () => window.clearInterval(timer);
+  }, []);
+
+  const showPreviousReview = () => {
+    setActiveReview((current) => (current - 1 + testimonials.length) % testimonials.length);
+  };
+
+  const showNextReview = () => {
+    setActiveReview((current) => (current + 1) % testimonials.length);
+  };
+
   return (
     <>
       <header className="topbar">
@@ -69,6 +122,7 @@ export default function Home() {
             <a href="#services">洗护服务</a>
             <a href="#process">护理流程</a>
             <a href="#plans">套餐价格</a>
+            <a href="#reviews">顾客评价</a>
             <a href="#booking">预约到店</a>
           </div>
           <a className="nav-action" href="#booking">
@@ -186,6 +240,71 @@ export default function Home() {
                     选择套餐
                   </a>
                 </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section alt" id="reviews">
+          <div className="wrap reviews">
+            <div className="section-head reviews-head">
+              <div>
+                <span className="section-kicker">真实反馈</span>
+                <h2>顾客评价</h2>
+              </div>
+              <p>把主人最关心的护理过程、宠物状态和交付结果放在一起展示，方便快速判断服务体验。</p>
+            </div>
+
+            <div className="review-carousel" aria-roledescription="carousel" aria-label="顾客评价轮播">
+              <button
+                className="carousel-button prev"
+                type="button"
+                onClick={showPreviousReview}
+                aria-label="上一条评价"
+              >
+                ‹
+              </button>
+
+              <article className="review-slide" key={review.name}>
+                <div className="review-photo">
+                  <img src={review.image} alt={`${review.pet} 洗护后的状态`} />
+                  <div className="review-score">
+                    <strong>{review.score}</strong>
+                    <span>服务评分</span>
+                  </div>
+                </div>
+                <div className="review-content">
+                  <div className="stars" aria-label={`${review.score} 分`}>
+                    ★★★★★
+                  </div>
+                  <blockquote>{review.quote}</blockquote>
+                  <div className="review-author">
+                    <strong>{review.name}</strong>
+                    <span>{review.pet}</span>
+                  </div>
+                </div>
+              </article>
+
+              <button
+                className="carousel-button next"
+                type="button"
+                onClick={showNextReview}
+                aria-label="下一条评价"
+              >
+                ›
+              </button>
+            </div>
+
+            <div className="review-dots" aria-label="选择评价">
+              {testimonials.map((item, index) => (
+                <button
+                  className={index === activeReview ? "active" : ""}
+                  type="button"
+                  key={item.name}
+                  onClick={() => setActiveReview(index)}
+                  aria-label={`查看${item.name}的评价`}
+                  aria-current={index === activeReview ? "true" : undefined}
+                />
               ))}
             </div>
           </div>
