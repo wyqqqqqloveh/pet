@@ -1,3 +1,5 @@
+import mapImage from "../assets/map-ai.png";
+
 const services = [
   {
     image:
@@ -238,10 +240,6 @@ export default function Home() {
                 </li>
               </ul>
               <div className="store-location">
-                <img
-                  src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=900&q=85"
-                  alt="绒爪宠物洗护门店接待区"
-                />
                 <div className="store-location-body">
                   <strong>城市花园路门店</strong>
                   <p>临街 1F 门店，门口可短暂停车，下车后从玻璃门进入接待区。</p>
@@ -254,6 +252,7 @@ export default function Home() {
                     查看路线
                   </a>
                 </div>
+                <img src={mapImage.src} alt="绒爪宠物洗护城市花园路门店位置地图" />
               </div>
             </aside>
 
