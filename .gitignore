@@ -1,0 +1,35 @@
+# Local agent/tooling state
+.agents/
+.codex/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Logs and local environment files
+*.log
+.env
+.env.*
+!.env.example
+
+# Dependency and build output directories
+node_modules/
+.next/
+out/
+dist/
+build/
+coverage/
+.cache/
+.parcel-cache/
+.vite/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
